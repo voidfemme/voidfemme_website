@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Zines{% endblock %}
+
+{% block content %}
+<div class="zines-page">
+    <header class="page-header">
+        <h1>Zines</h1>
+        <p class="subtitle">A collection of handmade digital zines</p>
+    </header>
+    
+    <div class="zines-grid">
+        {% if zines %}
+            {% for zine in zines %}
+            <article class="zine-card">
+                <div class="zine-cover">
+                    {% if zine.cover_image %}
+                        <img src="{{ zine.cover_image }}" alt="Cover for {{ zine.title }}" loading="lazy">
+                    {% else %}
+                        <div class="zine-cover-placeholder">
+                            <span>{{ zine.title[0] | upper }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="zine-info">
+                    <h2 class="zine-title">
+                        <a href="{{ url_for('zine_detail', zine_id=zine.id) }}">{{ zine.title }}</a>
+                    </h2>
+                    
+                    <p class="zine-description">{{ zine.description | truncate(100) }}</p>
+                    
+                    {% if zine.tags %}
+                    <div class="zine-tags">
+                        {% for tag in zine.tags %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="zine-meta">
+                        <span class="downloads">{{ zine.downloads }} downloads</span>
+                        <a href="{{ url_for('download_zine', zine_id=zine.id) }}" class="download-link">
+                            Download PDF
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        {% else %}
+            <p class="no-zines">No zines available yet. Check back soon!</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

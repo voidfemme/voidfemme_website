@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="home-page">
+    <section class="hero">
+        <h1>Welcome to VoidFemme</h1>
+        <p class="lead">A space for thoughts, code, and zines.</p>
+    </section>
+
+    <section class="featured-content">
+        <div class="featured-section">
+            <h2>Latest Posts</h2>
+            <a href="/blog" class="section-link">View all posts →</a>
+        </div>
+
+        <div class="featured-section">
+            <h2>Featured Zines</h2>
+            <a href="/zines" class="section-link">Browse zines →</a>
+        </div>
+    </section>
+</div>
+{% endblock %}

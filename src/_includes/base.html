@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Your Site{% endblock %}</title>
+    
+    <!-- Preload critical fonts -->
+    <link 
+      rel="preload" 
+      href="/static/fonts/playfair-display-variable.woff2" 
+      as="font" 
+      type="font/woff2" 
+      crossorigin
+    />
+    
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="/static/css/style.css" />
+    
+    <!-- IndieWeb endpoints -->
+    <link rel="webmention" href="/webmention" />
+    <link rel="micropub" href="/micropub" />
+    <link rel="authorization_endpoint" href="https://indieauth.com/auth" />
+    <link rel="token_endpoint" href="https://tokens.indieauth.com/token" />
+    
+    <!-- Defer non-critical JavaScript -->
+    <script defer src="/static/js/main.js"></script>
+    
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="{% block og_title %}{{ title }}{% endblock %}" />
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}" />
+    <meta property="og:url" content="{{ page_url }}" />
+    <meta property="og:description" content="{% block og_description %}{{ description }}{% endblock %}" />
+  </head>
+
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    {% include "header.html" %}
+
+    <main id="main-content">
+      {% block content %} 
+        {{ content | safe }} 
+      {% endblock %}
+    </main>
+
+    {% include "footer.html" %}
+    
+    <!-- Minimal inline script for critical functionality -->
+    <script>
+      // Check for JavaScript support
+      document.documentElement.classList.remove('no-js');
+      document.documentElement.classList.add('js-enabled');
+      
+      // Handle dark mode preference
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark-mode');
+      }
+    </script>
+  </body>
+</html>

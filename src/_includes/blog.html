@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+<div class="blog-page h-feed">
+    <h1 class="p-name">Blog Posts</h1>
+    
+    <div class="post-list">
+        {% if posts %}
+            {% for post in posts %}
+            <article class="post-preview h-entry">
+                <header>
+                    <h2 class="post-title p-name">
+                        <a href="{{ post.url }}" class="u-url">{{ post.title }}</a>
+                    </h2>
+                    <time datetime="{{ post.date.isoformat() }}" class="post-date dt-published">
+                        {{ post.date | date }}
+                    </time>
+                </header>
+                
+                <div class="post-excerpt p-summary">
+                    {{ post.content | truncate(200) | safe }}
+                </div>
+                
+                <footer>
+                    <a href="{{ post.url }}" class="read-more">Read more →</a>
+                    <a href="https://yoursite.com" class="p-author h-card" style="display: none;">Your Name</a>
+                </footer>
+            </article>
+            {% endfor %}
+        {% else %}
+            <p>No posts yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

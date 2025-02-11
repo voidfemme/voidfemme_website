@@ -1,0 +1,20 @@
+{
+  "zines": [
+    {
+      "id": 0,
+      "title": "Guarding the Gates of Eden",
+      "description": "Stories and reflections from the cathedral steps",
+      "pdf_filename": "guarding-the-gates-of-eden.pdf",
+      "cover_image": null,
+      "tags": [
+        "mutual aid",
+        "solidarity",
+        "community",
+        "activism",
+        "spirituality"
+      ],
+      "created_at": "2025-02-07T14:31:55.807301",
+      "downloads": 0
+    }
+  ]
+}
