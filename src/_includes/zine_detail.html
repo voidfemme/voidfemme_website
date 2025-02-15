@@ -1,47 +1,47 @@
-{% extends "base.html" %} {% block title %}{{ zine.title }} - Zine{% endblock %}
+{% extends "base.html" %} 
+{% block title %}{{ zine.title }} - Zine{% endblock %}
 {% block content %}
-<article class="zine-detail">
-  <div class="zine-header">
-    <div class="zine-cover-large">
-      {% if zine.cover_image %}
-      <img src="{{ zine.cover_image }}" alt="Cover for {{ zine.title }}" />
-      {% else %}
-      <div class="zine-cover-placeholder large">
-        <span>{{ zine.title[0] | upper }}</span>
+<div class="zine-detail-container">
+  <article class="zine-detail-card">
+    <div class="zine-header">
+      <div class="zine-cover-large">
+        {% if zine.cover_image %}
+        <img src="{{ zine.cover_image }}" alt="Cover for {{ zine.title }}" />
+        {% else %}
+        <div class="zine-cover-placeholder large">
+          <span>{{ zine.title[0] | upper }}</span>
+        </div>
+        {% endif %}
       </div>
-      {% endif %}
+
+      <div class="zine-info">
+        <h1>{{ zine.title }}</h1>
+
+        {% if zine.tags %}
+        <div class="zine-tags">
+          {% for tag in zine.tags %}
+          <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="zine-meta">
+          <p class="zine-date">Published {{ zine.created_at | date }}</p>
+          <p class="downloads">{{ zine.downloads }} downloads</p>
+        </div>
+
+        <div class="zine-actions">
+          <a href="{{ url_for('download_zine', zine_id=zine.id) }}" class="button download-button">
+            Download PDF
+          </a>
+        </div>
+      </div>
     </div>
 
-    <div class="zine-info">
-      <h1>{{ zine.title }}</h1>
-
-      {% if zine.tags %}
-      <div class="zine-tags">
-        {% for tag in zine.tags %}
-        <span class="tag">{{ tag }}</span>
-        {% endfor %}
-      </div>
-      {% endif %}
-
-      <div class="zine-meta">
-        <p class="zine-date">Published {{ zine.created_at | date }}</p>
-        <p class="downloads">{{ zine.downloads }} downloads</p>
-      </div>
-
-      <div class="zine-actions">
-        <a
-          href="{{ url_for('download_zine', zine_id=zine.id) }}"
-          class="download-button"
-        >
-          Download PDF
-        </a>
-      </div>
+    <div class="zine-content">
+      <h2>About this zine</h2>
+      <p class="zine-description">{{ zine.description }}</p>
     </div>
-  </div>
-
-  <div class="zine-content">
-    <h2>About this zine</h2>
-    <p class="zine-description">{{ zine.description }}</p>
-  </div>
-</article>
+  </article>
+</div>
 {% endblock %}

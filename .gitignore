@@ -1,10 +1,10 @@
-# Python
+# Python bytecode and caches
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
+
+# Distribution / packaging
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -20,32 +20,51 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# Virtual environments (ignore any envs, regardless of folder name)
 .env
 venv/
 ENV/
+env/
 
-# Database
+# Database files (ignore all .db and SQLite files)
 *.db
 *.sqlite3
 *.sqlite
 
-# IDE specific files
+# IDE / Editor directories and files
 .idea/
 .vscode/
 *.swp
 *.swo
 .DS_Store
+Thumbs.db
+desktop.ini
 
 # Logs
 *.log
 logs/
 log/
 
-# Media and generated files
-media/
-uploads/
-zines/pdfs/*
-!zines/pdfs/.gitkeep
+# Test and coverage reports
+.coverage
+htmlcov/
+pytest_cache/
+.mypy_cache/
+.pytest_cache/
+
+# User-generated content
+# Blog posts, static pages, and zines are user content and will not be tracked.
+src/posts/
+src/pages/
+src/zines/
+# Also skip images generated for posts and user-uploaded photos.
+src/static/images/posts/
+src/static/photos/
+
+# PDFs (if any PDFs are user content, ignore them)
+# Note: Remove or comment out the next line if you wish to track zine PDFs.
+src/zines/pdfs/*.pdf
 
 # Node modules (if you add any JavaScript dependencies later)
 node_modules/
@@ -56,12 +75,18 @@ _site/
 public/
 dist/
 
-# Local development settings
+# Local development settings and environment-specific files
 *.local
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# Keep specific files
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Keep specific files (e.g. empty directories)
 !.gitkeep
+

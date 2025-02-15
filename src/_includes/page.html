@@ -1,10 +1,13 @@
-{% extends "base.html" %} {% block title %}{{ title }}{% endblock %} {% block
-content %}
-<article class="page">
-  <header class="page-header">
-    <h1>{{ title }}</h1>
-  </header>
+{% extends "base.html" %} 
+{% block title %}{{ title }}{% endblock %} 
+{% block content %}
+<div class="page-container">
+  <article class="page-card">
+    <header class="page-header">
+      <h1>{{ title }}</h1>
+    </header>
 
-  <div class="page-content">{{ content | safe }}</div>
-</article>
+    <div class="page-content">{{ content | safe }}</div>
+  </article>
+</div>
 {% endblock %}

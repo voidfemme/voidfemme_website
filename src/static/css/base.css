@@ -1,0 +1,128 @@
+/* Base variables and theme */
+:root {
+  /* Rose-themed colors */
+  --bg-primary: #0a0a0a;
+  /* Almost black background */
+  --bg-secondary: #151515;
+  /* Slightly lighter black for contrast */
+  --card-bg: rgba(255, 245, 245, 0.95);
+  /* Very light pink-white */
+  --card-hover: rgba(255, 248, 248, 0.98);
+
+  /* Rose palette */
+  --rose-dark: #8b0033;
+  /* Deep burgundy */
+  --rose-medium: #cc3366;
+  /* Medium rose */
+  --rose-light: #ffb3c6;
+  /* Soft pink */
+  --leaf-dark: #2d4a34;
+  /* Dark green */
+  --leaf-light: #7aa685;
+  /* Sage green */
+
+  /* Functional colors */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-on-card: #1a1a1a;
+  --accent-primary: var(--rose-medium);
+  --accent-secondary: var(--rose-dark);
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+
+  /* Layout */
+  --spacing-unit: 1.5rem;
+  --border-radius: 8px;
+  --max-width: 1200px;
+
+  /* Typography */
+  --font-decorative: "Playfair Display", Georgia, serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  background-image:
+    radial-gradient(circle at 100% 100%, var(--rose-dark) 0, transparent 20%),
+    radial-gradient(circle at 0% 0%, var(--leaf-dark) 0, transparent 20%);
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-decorative);
+  line-height: 1.3;
+  margin: var(--spacing-unit) 0;
+  color: var(--text-primary);
+}
+
+h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(45deg, var(--rose-dark), var(--rose-medium));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: var(--spacing-unit);
+}
+
+/* Links */
+a {
+  color: var(--rose-medium);
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+
+a:hover {
+  color: var(--rose-dark);
+}
+
+/* Main content area */
+main {
+  min-height: 100vh;
+  padding: var(--spacing-unit);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--rose-medium);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card-bg: rgba(255, 245, 245, 0.92);
+    --card-hover: rgba(255, 248, 248, 0.97);
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: none;
+    color: black;
+  }
+
+  a {
+    color: var(--rose-dark);
+  }
+}

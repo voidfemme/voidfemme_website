@@ -1,60 +1,82 @@
-{% extends "base.html" %} {% block title %}{{ title }}{% endblock %} {% block
-content %}
-<article class="h-entry">
-  <header class="post-header">
-    <h1 class="p-name">{{ title }}</h1>
-    <time class="dt-published" datetime="{{ date.isoformat() }}">
-      {{ date | date }}
-    </time>
-  </header>
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="post-page">
+  <article class="post-preview h-entry"> {# Using post-preview class for the card styling #}
+    <header class="post-header">
+      <h1 class="p-name">{{ title }}</h1>
+      <time class="post-date dt-published" datetime="{{ date.isoformat() }}">
+        {{ date | date }}
+      </time>
+    </header>
 
-  <div class="e-content">{{ content | safe }}</div>
+    <div class="post-content e-content">{{ content | safe }}</div>
 
-  <footer class="post-footer">
-    <div class="post-meta">
-      <a class="u-url" href="{{ page_url }}">Permalink</a>
-    </div>
-  </footer>
-</article>
-
-<section class="webmentions" id="webmentions">
-  <h2>Responses</h2>
-  {% if webmentions %} {% for mention in webmentions %}
-  <div class="webmention h-cite">
-    <div class="webmention-meta">
-      {% if mention.author_name %}
-      <span class="p-author h-card">
-        {% if mention.author_photo %}
-        <img class="u-photo" src="{{ mention.author_photo }}" alt="{{ mention.author_name }}" width="48" height="48" />
-        {% endif %}
-        <span class="p-name">{{ mention.author_name }}</span>
-      </span>
+    <footer class="post-footer">
+      {% if categories %}
+      <div class="post-categories">
+        {% for category in categories %}
+        <span class="tag">{{ category }}</span>
+        {% endfor %}
+      </div>
       {% endif %}
-      <a class="u-url" href="{{ mention.source }}">
-        {% if mention.published %}
-        <time class="dt-published" datetime="{{ mention.published }}">
-          {{ mention.published | date }}
-        </time>
-        {% endif %}
-      </a>
-    </div>
-    {% if mention.content %}
-    <div class="p-content">{{ mention.content }}</div>
-    {% endif %}
-  </div>
-  {% endfor %} {% else %}
-  <p>No responses yet. Be the first to respond!</p>
-  {% endif %}
+      
+      {% if tags %}
+      <div class="post-tags">
+        {% for tag in tags %}
+        <span class="tag">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
 
-  <div class="webmention-form">
-    <h3>Send a response</h3>
-    <form action="/webmention" method="post" class="form-webmention">
-      <input type="hidden" name="target" value="{{ page_url }}" />
-      <label for="source">URL of your response:</label>
-      <input type="url" id="source" name="source" required placeholder="https://yourdomain.com/your-post"
-        pattern="https?://.*" />
-      <button type="submit">Send Webmention</button>
-    </form>
-  </div>
-</section>
+      <div class="post-meta">
+        <a class="u-url" href="{{ page_url }}">Permalink</a>
+      </div>
+    </footer>
+  </article>
+
+  <section class="webmentions card" id="webmentions">
+    <h2>Responses</h2>
+    {% if webmentions %}
+      {% for mention in webmentions %}
+      <div class="webmention h-cite">
+        <div class="webmention-meta">
+          {% if mention.author_name %}
+          <span class="p-author h-card">
+            {% if mention.author_photo %}
+            <img class="u-photo" src="{{ mention.author_photo }}" alt="{{ mention.author_name }}" width="48" height="48" />
+            {% endif %}
+            <span class="p-name">{{ mention.author_name }}</span>
+          </span>
+          {% endif %}
+          <a class="u-url" href="{{ mention.source }}">
+            {% if mention.published %}
+            <time class="dt-published" datetime="{{ mention.published }}">
+              {{ mention.published | date }}
+            </time>
+            {% endif %}
+          </a>
+        </div>
+        {% if mention.content %}
+        <div class="p-content">{{ mention.content }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    {% else %}
+      <p>No responses yet. Be the first to respond!</p>
+    {% endif %}
+
+    <div class="webmention-form">
+      <h3>Send a response</h3>
+      <form action="/webmention" method="post" class="form-webmention">
+        <input type="hidden" name="target" value="{{ page_url }}" />
+        <div class="form-group">
+          <label for="source">URL of your response:</label>
+          <input type="url" id="source" name="source" class="form-input" required placeholder="https://yourdomain.com/your-post" pattern="https?://.*" />
+        </div>
+        <button type="submit" class="button">Send Webmention</button>
+      </form>
+    </div>
+  </section>
+</div>
 {% endblock %}
