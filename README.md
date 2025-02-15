@@ -1,7 +1,3 @@
-Below is an example README in Markdown that you can use as a living how-to guide for working on the site in the future:
-
----
-
 # voidfemme Website
 
 This repository contains the code for the [voidfemme](https://voidfemme.com) website—a personal space for thoughts, code, and zines created by Rose Proctor. The site is built with Flask, Jinja2 templates, Markdown content, and several IndieWeb features (webmentions, micropub, etc.) plus integrations like a Telegram bot.
