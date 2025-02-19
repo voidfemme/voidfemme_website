@@ -64,15 +64,53 @@ const enhanceImages = () => {
   images.forEach((img) => imageObserver.observe(img));
 };
 
-// Dark mode toggle (if user prefers)
+// Enhanced dark mode with toggle
 const enhanceDarkMode = () => {
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-  const toggleDark = (e) => {
-    document.documentElement.classList.toggle("dark-mode", e.matches);
+  const footer = document.querySelector(".site-footer");
+
+  // Create and add the toggle button
+  const createToggle = () => {
+    const toggle = document.createElement("button");
+    toggle.className = "theme-toggle";
+    toggle.setAttribute("aria-label", "Toggle dark mode");
+    toggle.innerHTML = `<span class="theme-toggle__icon">${prefersDark.matches ? "☀️" : "🌙"}</span>`;
+
+    // Find the footer content
+    const footerContent = footer.querySelector(".footer-content");
+    footerContent.appendChild(toggle);
+
+    return toggle;
   };
 
-  prefersDark.addEventListener("change", toggleDark);
-  toggleDark(prefersDark);
+  // Handle system preference changes and manual toggles
+  const toggleDark = (isDark) => {
+    // Toggle both the class and data attribute for compatibility
+    document.documentElement.classList.toggle("dark-mode", isDark);
+    document.documentElement.setAttribute(
+      "data-theme",
+      isDark ? "dark" : "light",
+    );
+
+    // Update toggle icon if it exists
+    const icon = document.querySelector(".theme-toggle__icon");
+    if (icon) {
+      icon.textContent = isDark ? "☀️" : "🌙";
+    }
+  };
+
+  // Initialize system preference listener
+  prefersDark.addEventListener("change", (e) => toggleDark(e.matches));
+  toggleDark(prefersDark.matches);
+
+  // Add manual toggle functionality
+  if (footer) {
+    const toggle = createToggle();
+    toggle.addEventListener("click", () => {
+      const isDark = !document.documentElement.classList.contains("dark-mode");
+      toggleDark(isDark);
+    });
+  }
 };
 
 // Initialize enhancements when DOM is ready

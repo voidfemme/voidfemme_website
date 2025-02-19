@@ -1,0 +1,144 @@
+/* _navigation.css */
+.site-header {
+  padding: var(--spacing-md) 0;
+  background-color: white;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+/* Site brand styling */
+.site-brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.site-brand__link {
+  color: var(--color-secondary);
+  transition: var(--transition-base);
+}
+
+.site-brand__link:hover {
+  color: var(--color-primary);
+}
+
+/* Navigation list */
+.nav-list {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.nav__link {
+  color: var(--color-secondary);
+  font-weight: 500;
+  padding: 0.5rem;
+  transition: var(--transition-base);
+  position: relative;
+  text-decoration: none;
+}
+
+.nav__link:hover {
+  color: var(--color-primary);
+  opacity: 0.85;
+}
+
+/* Active state for navigation links */
+.nav__link.active {
+  color: var(--color-primary);
+}
+
+.nav__link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0.5rem;
+  right: 0.5rem;
+  height: 2px;
+  background-color: var(--color-primary);
+  border-radius: 1px;
+}
+
+/* Mobile navigation */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .nav-list {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-sm);
+  }
+
+  .nav__link {
+    padding: 0.25rem;
+  }
+}
+
+/* Larger screens */
+@media (min-width: 769px) {
+  .site-header {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .nav__link {
+    padding: 0.5rem 1rem;
+  }
+
+  /* Subtle hover effect for desktop */
+  .nav__link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background-color: var(--color-primary);
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+  }
+
+  .nav__link:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Additional navigation elements */
+.nav-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-lg);
+  font-size: 0.875rem;
+  color: var(--color-text);
+}
+
+.nav-breadcrumb__separator {
+  color: var(--color-text);
+  opacity: 0.5;
+}
+
+/* Skip to main content link for accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 1rem;
+  background-color: var(--color-primary);
+  color: white;
+  z-index: 100;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}

@@ -1,0 +1,79 @@
+/* _footer.css */
+.site-footer {
+  margin-top: auto;
+  /* Pushes footer to bottom when content is short */
+  padding: var(--spacing-xl) 0;
+  background-color: var(--color-background);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.footer-container {
+  width: 100%;
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+/* Make footer stack on mobile */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.footer-content p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  opacity: 0.8;
+}
+
+/* Theme toggle button container */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius);
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-background);
+}
+
+.theme-toggle svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-text);
+}
+
+/* Footer links */
+.footer-links {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.footer-link {
+  font-size: 0.875rem;
+  color: var(--color-text);
+  opacity: 0.8;
+  transition: var(--transition-base);
+}
+
+.footer-link:hover {
+  opacity: 1;
+  color: var(--color-primary);
+}

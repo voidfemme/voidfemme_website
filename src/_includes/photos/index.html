@@ -1,35 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}Photos | {{ super() }}{% endblock %}
+{% block title %}photos | {{ super() }}{% endblock %}
 
 {% block content %}
 <div class="photos-page">
   <header class="page-header">
-    <h1>Photos</h1>
+    <h1 class="page__title">photos</h1>
     {% if tag %}
-    <p class="subtitle">Posts tagged with #{{ tag }}</p>
+    <p class="page__subtitle">Posts tagged with #{{ tag }}</p>
     {% endif %}
   </header>
 
   <div class="photo-grid">
     {% for post in posts %}
     <article class="photo-card">
-      <a href="{{ url_for('photo_detail', slug=post.slug) }}" class="photo-link">
+      <a href="{{ url_for('photo_detail', slug=post.slug) }}" class="photo-card__link">
         <img 
           src="{{ url_for('serve_photo', filename=post.thumbnail_path, size='thumbnail') }}"
           alt="{{ post.alt_text or post.caption or 'Photo' }}"
-          class="photo-thumbnail"
+          class="photo-card__image"
           loading="lazy"
         >
       </a>
       {% if post.caption %}
-      <div class="photo-overlay">
-        <p class="photo-caption">{{ post.caption }}</p>
+      <div class="photo-card__overlay">
+        <p class="photo-card__caption">{{ post.caption }}</p>
       </div>
       {% endif %}
     </article>
     {% else %}
-    <p class="no-photos">No photos to display yet.</p>
+    <p class="photo-grid__empty">No photos to display yet.</p>
     {% endfor %}
   </div>
 </div>

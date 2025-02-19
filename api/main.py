@@ -17,11 +17,13 @@ from datetime import datetime, date, timezone
 import logging
 import requests
 import markdown
+import os
 
 from database import Database
 from validators import validate_webmention
 from templates import render_post, render_page
 from zines import ZineManager
+from feed_aggregator import FeedAggregator
 from config import (
     POSTS_DIR,
     PAGES_DIR,
@@ -47,6 +49,7 @@ app = Flask(__name__, template_folder="../src/_includes", static_folder="../src/
 db = Database("webmentions.db")
 zine_manager = ZineManager("../src/zines")
 bot = TelegramBot(TELEGRAM_BOT_TOKEN, db)
+feed_aggregator = FeedAggregator(cache_duration=30)  # Cache for 30 minutes
 
 
 @app.route("/static/images/posts/<path:filename>")
@@ -479,11 +482,15 @@ def home():
     # Get home page content
     home_content = get_home_content()
 
+    # Load the links content
+    homelinks_content = get_homelinks_content()
+
     return render_template(
         "index.html",
         recent_posts=recent_posts,
         recent_zines=recent_zines,
         home_content=home_content,
+        homelinks=homelinks_content,
     )
 
 
@@ -515,7 +522,9 @@ def about():
         return "About page not found", 404
 
     page_data = get_post_data(page_path)
-    return render_page(page_data)
+    return render_template(
+        "about.html", title=page_data["title"], content=page_data["content"]
+    )
 
 
 @app.route("/posts/<slug>")
@@ -592,6 +601,68 @@ def download_zine(zine_id):
         return send_file(pdf_path, as_attachment=True)
     except FileNotFoundError:
         abort(404)
+
+
+def get_homelinks_content():
+    links_path = PAGES_DIR / "homelinks.md"
+    if links_path.exists():
+        with open(links_path) as f:
+            post = frontmatter.load(f)
+            return markdown.markdown(post.content)
+    return ""
+
+
+@app.route("/debug/feeds")
+def debug_feeds():
+    """Debug endpoint to check feed parsing."""
+    aggregator = feed_aggregator  # Your existing feed_aggregator instance
+
+    results = {
+        "paths": {
+            "project_root": str(aggregator.project_root),
+            "data_dir": str(aggregator.data_dir),
+            "feeds_file": str(aggregator.feeds_path),
+            "current_working_dir": os.getcwd(),
+        },
+        "file_exists": aggregator.feeds_path.exists(),
+        "feed_config": aggregator.load_feed_urls(),
+        "parsing_results": {},
+    }
+
+    if results["feed_config"]:
+        for feed in results["feed_config"]:
+            if feed["type"] == "h-feed":
+                items = aggregator.parse_h_feed(feed["url"])
+            else:
+                items = aggregator.parse_rss_feed(feed["url"])
+
+            results["parsing_results"][feed["url"]] = {
+                "type": feed["type"],
+                "item_count": len(items),
+                "sample_items": items[:2] if items else None,
+                "success": bool(items),
+            }
+
+    return jsonify(results)
+
+
+@app.route("/feed")
+def feed():
+    """Render the feed page with indieweb content."""
+    feed_path = PAGES_DIR / "feed.md"
+
+    # Get the page content (description, etc.)
+    if feed_path.exists():
+        with open(feed_path) as f:
+            page = frontmatter.load(f)
+            content = markdown.markdown(page.content)
+    else:
+        content = ""
+
+    # Get the feed items
+    feed_items = feed_aggregator.fetch_feeds()
+
+    return render_template("feed.html", content=content, feed_items=feed_items)
 
 
 if __name__ == "__main__":

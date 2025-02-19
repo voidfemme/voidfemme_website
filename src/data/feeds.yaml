@@ -1,0 +1,6 @@
+feeds:
+  - url: https://pinkgallica.com/feed/
+    type: rss
+
+  - url: https://soopy.moe/blog/
+    type: h-feed

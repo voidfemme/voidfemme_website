@@ -3,28 +3,28 @@
 {% block title %}Blog{% endblock %}
 
 {% block content %}
-<div class="blog-page h-feed">
-    <h1 class="p-name">Blog Posts</h1>
+<div class="blog-page">
+    <h1 class="page__title p-name">blog</h1>
     
     <div class="post-list">
         {% if posts %}
             {% for post in posts %}
-            <article class="post-preview h-entry">
+            <article class="card card--post h-entry">  <!-- Changed from post-preview -->
                 <header>
-                    <h2 class="post-title p-name">
+                    <h2 class="card__title p-name">
                         <a href="{{ post.url }}" class="u-url">{{ post.title }}</a>
                     </h2>
-                    <time datetime="{{ post.date.isoformat() }}" class="post-date dt-published">
+                    <time datetime="{{ post.date.isoformat() }}" class="card__date dt-published">
                         {{ post.date | date }}
                     </time>
                 </header>
                 
-                <div class="post-excerpt p-summary">
+                <div class="card__excerpt p-summary">
                     {{ post.content | truncate(200) | safe }}
                 </div>
                 
                 <footer>
-                    <a href="{{ post.url }}" class="read-more">Read more →</a>
+                    <a href="{{ post.url }}" class="button button--small">Read more →</a>
                     <a href="https://yoursite.com" class="p-author h-card" style="display: none;">Your Name</a>
                 </footer>
             </article>

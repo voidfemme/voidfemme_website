@@ -1,0 +1,75 @@
+/* _home.css */
+/* Home page specific styles */
+.home-page {
+  padding: var(--spacing-xl) 0;
+}
+
+.home-hero {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.home-hero__title {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.home-hero__lead {
+  font-size: var(--font-size-h4);
+  color: var(--color-text);
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.home-main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+@media (min-width: 768px) {
+  .home-main {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+/* Card content colors */
+.card--homelinks,
+.card--featured {
+  background-color: white;
+  color: var(--color-text);
+}
+
+.card--homelinks a,
+.card--featured a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.card--homelinks a:hover,
+.card--featured a:hover {
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.card--homelinks p,
+.card--featured p {
+  color: var(--color-text);
+  margin-bottom: var(--spacing-md);
+}
+
+/* Specific card variations */
+.card--homelinks {
+  height: 100%;
+}
+
+.card--featured {
+  height: 100%;
+}

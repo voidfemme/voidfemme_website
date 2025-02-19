@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}feed{% endblock %}
+
+{% block content %}
+<div class="feed-page">
+    <header class="page-header">
+        <h1 class="page__title">feed</h1>
+    </header>
+
+    {% if content %}
+    <div class="container">
+        <article class="card">
+            <div class="card__content">
+                {{ content | safe }}
+            </div>
+        </article>
+    </div>
+    {% endif %}
+    
+    <div class="container">
+        {% if feed_items %}
+            {% for item in feed_items %}
+            <article class="card">
+                <header class="card__header">
+                    <h2 class="card__title">
+                        <a href="{{ item.url }}">{{ item.title }}</a>
+                    </h2>
+                    <div class="card__meta">
+                        {% if item.author %}
+                        <span class="card__author">by {{ item.author }}</span>
+                        {% endif %}
+                        <time datetime="{{ item.date }}" class="card__date">
+                            {{ item.date | date }}
+                        </time>
+                    </div>
+                </header>
+                
+                <div class="card__content">
+                    {{ item.summary | safe }}
+                </div>
+                
+                {% if item.tags %}
+                <footer>
+                    <div class="card__tags">
+                        {% for tag in item.tags %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                </footer>
+                {% endif %}
+            </article>
+            {% endfor %}
+        {% else %}
+            <p class="post-list__empty">No items in the feed yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

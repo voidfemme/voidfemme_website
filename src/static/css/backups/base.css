@@ -1,0 +1,179 @@
+/* Base variables and theme */
+:root {
+  /* Core Constructivist Palette */
+  --constructivist-red: #e63946;
+  --constructivist-black: #1d1d1b;
+  --constructivist-white: #f5f3f4;
+
+  /* Extended Palette */
+  --constructivist-grey: #4a4a4a;
+  --constructivist-accent: #ffd700;
+
+  /* Functional Colors */
+  --bg-primary: var(--constructivist-black);
+  --bg-secondary: #252525;
+  --text-primary: var(--constructivist-white);
+  --text-secondary: rgba(245, 243, 244, 0.8);
+  --accent-primary: var(--constructivist-red);
+  --accent-secondary: var(--constructivist-accent);
+
+  /* Card Colors */
+  --card-bg: var(--constructivist-white);
+  --card-hover: #ffffff;
+  --text-on-card: var(--constructivist-black);
+
+  /* Layout */
+  --spacing-unit: 1.5rem;
+  --border-radius: 0;
+  /* Sharp edges for constructivist style */
+  --max-width: 1000px;
+  --diagonal-angle: 12deg;
+
+  /* Typography */
+  --font-primary: "Futura", "Helvetica Neue", Arial, sans-serif;
+  --font-secondary:
+    "Constructivist", "Futura", "Helvetica Neue", Arial, sans-serif;
+
+  /* Effects */
+  --card-shadow: 8px 8px 0 rgba(230, 57, 70, 0.8);
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  background-image: linear-gradient(var(--diagonal-angle),
+      transparent 0%,
+      transparent 45%,
+      var(--constructivist-red) 45%,
+      var(--constructivist-red) 55%,
+      transparent 55%);
+  background-size: 100% 100vh;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-primary);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  margin: var(--spacing-unit) 0;
+  transform: skew(-var(--diagonal-angle));
+  color: var(--constructivist-white);
+  text-align: left;
+}
+
+h1 {
+  font-size: 3.5rem;
+  color: var(--constructivist-red);
+  position: relative;
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin-left: -1em;
+  background: var(--constructivist-black);
+  box-shadow: 8px 8px 0 var(--constructivist-red);
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: var(--constructivist-red);
+  border-bottom: 4px solid currentColor;
+}
+
+/* Links */
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: all 200ms ease;
+  position: relative;
+}
+
+a:hover {
+  color: var(--accent-secondary);
+}
+
+a:not(.nav-link):not(.button)::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0) skew(-var(--diagonal-angle));
+  transform-origin: right;
+  transition: transform 200ms ease;
+}
+
+a:not(.nav-link):not(.button):hover::after {
+  transform: scaleX(1) skew(-var(--diagonal-angle));
+  transform-origin: left;
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  padding: var(--spacing-unit);
+  box-shadow: var(--card-shadow);
+  transition: transform 200ms ease;
+  position: relative;
+  border-left: 8px solid var(--constructivist-red);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  background: var(--constructivist-red);
+  transform: rotate(45deg);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* Buttons */
+.button {
+  display: inline-block;
+  padding: 1em 2em;
+  background: var(--constructivist-red);
+  color: var(--constructivist-white);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border: none;
+  transform: skew(-var(--diagonal-angle));
+  transition: all 200ms ease;
+  position: relative;
+  box-shadow: 4px 4px 0 var(--constructivist-black);
+}
+
+.button:hover {
+  background: var(--constructivist-black);
+  color: var(--constructivist-red);
+  box-shadow: 4px 4px 0 var(--constructivist-red);
+  transform: skew(-var(--diagonal-angle)) translateY(-2px);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card-bg: var(--bg-secondary);
+    --card-hover: var(--bg-primary);
+    --text-on-card: var(--text-primary);
+  }
+}

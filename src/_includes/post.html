@@ -2,19 +2,19 @@
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
 <div class="post-page">
-  <article class="post-preview h-entry"> {# Using post-preview class for the card styling #}
-    <header class="post-header">
-      <h1 class="p-name">{{ title }}</h1>
-      <time class="post-date dt-published" datetime="{{ date.isoformat() }}">
+  <article class="card card--post h-entry">
+    <header class="card__header">
+      <h1 class="card__title p-name">{{ title }}</h1>
+      <time class="card__date dt-published" datetime="{{ date.isoformat() }}">
         {{ date | date }}
       </time>
     </header>
 
-    <div class="post-content e-content">{{ content | safe }}</div>
+    <div class="card__content e-content">{{ content | safe }}</div>
 
-    <footer class="post-footer">
+    <footer class="card__footer">
       {% if categories %}
-      <div class="post-categories">
+      <div class="card__categories">
         {% for category in categories %}
         <span class="tag">{{ category }}</span>
         {% endfor %}
@@ -22,25 +22,25 @@
       {% endif %}
       
       {% if tags %}
-      <div class="post-tags">
+      <div class="card__tags">
         {% for tag in tags %}
         <span class="tag">{{ tag }}</span>
         {% endfor %}
       </div>
       {% endif %}
 
-      <div class="post-meta">
+      <div class="card__meta">
         <a class="u-url" href="{{ page_url }}">Permalink</a>
       </div>
     </footer>
   </article>
 
-  <section class="webmentions card" id="webmentions">
-    <h2>Responses</h2>
+  <section class="card card--webmentions" id="webmentions">
+    <h2 class="card__title">Responses</h2>
     {% if webmentions %}
       {% for mention in webmentions %}
-      <div class="webmention h-cite">
-        <div class="webmention-meta">
+      <div class="card card--webmention h-cite">
+        <div class="card__meta">
           {% if mention.author_name %}
           <span class="p-author h-card">
             {% if mention.author_photo %}
@@ -58,21 +58,22 @@
           </a>
         </div>
         {% if mention.content %}
-        <div class="p-content">{{ mention.content }}</div>
+        <div class="card__content p-content">{{ mention.content }}</div>
         {% endif %}
       </div>
       {% endfor %}
     {% else %}
-      <p>No responses yet. Be the first to respond!</p>
+      <p class="card__empty">No responses yet. Be the first to respond!</p>
     {% endif %}
 
-    <div class="webmention-form">
-      <h3>Send a response</h3>
-      <form action="/webmention" method="post" class="form-webmention">
+    <div class="form">
+      <h3 class="form__title">Send a response</h3>
+      <form action="/webmention" method="post" class="form__webmention">
         <input type="hidden" name="target" value="{{ page_url }}" />
         <div class="form-group">
-          <label for="source">URL of your response:</label>
-          <input type="url" id="source" name="source" class="form-input" required placeholder="https://yourdomain.com/your-post" pattern="https?://.*" />
+          <label for="source" class="form-label">URL of your response:</label>
+          <input type="url" id="source" name="source" class="form-input" required 
+                 placeholder="https://yourdomain.com/your-post" pattern="https?://.*" />
         </div>
         <button type="submit" class="button">Send Webmention</button>
       </form>

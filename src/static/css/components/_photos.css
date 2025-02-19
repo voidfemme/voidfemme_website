@@ -1,0 +1,135 @@
+/* _photos.css */
+/* Photo Grid Layout */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+@media (min-width: 640px) {
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .photo-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Photo Card in Grid */
+.photo-card {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  aspect-ratio: 1;
+  background-color: var(--color-background);
+}
+
+.photo-card__link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.photo-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-base);
+}
+
+.photo-card:hover .photo-card__image {
+  transform: scale(1.03);
+}
+
+.photo-card__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--spacing-md);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  opacity: 0;
+  transition: var(--transition-base);
+}
+
+.photo-card:hover .photo-card__overlay {
+  opacity: 1;
+}
+
+.photo-card__caption {
+  color: white;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+/* Photo Detail Page */
+.photo-post {
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+  padding: var(--spacing-xl) var(--container-padding);
+}
+
+.photo-post-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.photo-post-header time {
+  display: block;
+  color: var(--color-text);
+  opacity: 0.8;
+  margin-top: var(--spacing-sm);
+}
+
+/* Photo Carousel/Gallery */
+.photo-carousel {
+  margin-bottom: var(--spacing-xl);
+}
+
+.photo-figure {
+  margin-bottom: var(--spacing-lg);
+}
+
+.photo-full {
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+}
+
+figcaption {
+  margin-top: var(--spacing-sm);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* Photo Tags */
+.photo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xl);
+}
+
+.photo-tags .tag {
+  color: var(--color-text);
+  text-decoration: none;
+  transition: var(--transition-base);
+}
+
+.photo-tags .tag:hover {
+  color: var(--color-primary);
+}
+
+/* Empty State */
+.photo-grid__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--color-text);
+  opacity: 0.8;
+}

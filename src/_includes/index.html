@@ -4,64 +4,23 @@
 
 {% block content %}
 <div class="home-page">
-    <section class="hero">
-        <h1>welcome to voidfemme</h1>
-        <p class="lead">a space for thoughts, code, and zines.</p>
+    <section class="home-hero">
+        <h1 class="home-hero__title">voidfemme</h1>
+        <p class="home-hero__lead">i'm a punk, bitch.</p>
     </section>
 
-    {% if home_content %}
-    <section class="home-content card">
-      {{ home_content | safe }}
-    </section>
-    {% endif %}
-
-    <section class="featured-content">
-        <div class="featured-section">
-            <h2>Latest Posts</h2>
-            {% if recent_posts %}
-                <div class="post-preview-grid">
-                    {% for post in recent_posts %}
-                    <article class="post-preview">
-                        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-                        <time datetime="{{ post.date.isoformat() }}">
-                            {{ post.date | date }}
-                        </time>
-                        {% if post.summary %}
-                        <p>{{ post.summary }}</p>
-                        {% endif %}
-                    </article>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p>No posts yet.</p>
-            {% endif %}
-            <a href="/blog" class="section-link">View all posts →</a>
+    <section class="home-main">
+        {% if homelinks %}
+        <div class="card card--homelinks">
+          {{ homelinks | safe }}
         </div>
-
-        <div class="featured-section">
-            <h2>Latest Zines</h2>
-            {% if recent_zines %}
-                <div class="zine-preview-grid">
-                    {% for zine in recent_zines %}
-                    <article class="zine-preview">
-                        <h3><a href="{{ url_for('zine_detail', zine_id=zine.id) }}">{{ zine.title }}</a></h3>
-                        <div class="zine-meta">
-                            <time datetime="{{ zine.created_at }}">
-                                {{ zine.created_at | date }}
-                            </time>
-                            <span class="downloads">{{ zine.downloads }} downloads</span>
-                        </div>
-                        {% if zine.description %}
-                        <p>{{ zine.description | truncate(100) }}</p>
-                        {% endif %}
-                    </article>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p>No zines yet.</p>
-            {% endif %}
-            <a href="/zines" class="section-link">Browse zines →</a>
+        {% endif %}
+        
+        {% if home_content %}
+        <div class="card card--featured">
+          {{ home_content | safe }}
         </div>
+        {% endif %}
     </section>
 </div>
 {% endblock %}

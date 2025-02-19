@@ -1,0 +1,50 @@
+/* _light.css */
+
+/* Light Theme Colors
+   ========================================================================== */
+:root {
+  /* Core Colors */
+  --color-primary: #e63946;
+  --color-secondary: #1d1d1b;
+  --color-background: #f5f3f4;
+  --color-surface: #ffffff;
+  --color-text: #1d1d1b;
+  --color-text-light: #4a4a4a;
+  --color-accent: #ffd700;
+
+  /* UI Colors */
+  --color-border: rgba(29, 29, 27, 0.1);
+  --color-shadow: rgba(29, 29, 27, 0.1);
+  --color-hover: rgba(230, 57, 70, 0.1);
+
+  /* Status Colors */
+  --color-success: #2ecc71;
+  --color-warning: #f1c40f;
+  --color-danger: #e74c3c;
+  --color-info: #3498db;
+
+  /* Card Colors */
+  --color-card-background: var(--color-surface);
+  --color-card-border: var(--color-border);
+  --color-card-shadow: 8px 8px 0 rgba(230, 57, 70, 0.8);
+  --color-card-hover: var(--color-surface);
+
+  /* Form Colors */
+  --color-input-background: var(--color-surface);
+  --color-input-border: var(--color-border);
+  --color-input-text: var(--color-text);
+  --color-input-placeholder: var(--color-text-light);
+  --color-input-focus: var(--color-primary);
+
+  /* Button Colors */
+  --color-button-background: var(--color-primary);
+  --color-button-text: var(--color-surface);
+  --color-button-border: var(--color-primary);
+  --color-button-hover: var(--color-secondary);
+  --color-button-hover-text: var(--color-primary);
+
+  /* Navigation Colors */
+  --color-nav-background: var(--color-secondary);
+  --color-nav-text: var(--color-surface);
+  --color-nav-hover: var(--color-primary);
+}

@@ -1,0 +1,178 @@
+/* _dark.css */
+
+/* Dark Theme Colors
+   ========================================================================== */
+:root[data-theme="dark"],
+.dark-mode {
+  /* Core Colors */
+  --color-primary: #ff4757;
+  --color-secondary: #1a1d24;
+  --color-background: #0f1115;
+  --color-surface: #1a1d24;
+  --color-text: #ffffff;
+  --color-text-light: #e1e5eb;
+
+  /* UI Colors */
+  --color-border: rgba(245, 246, 250, 0.1);
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-hover: rgba(255, 71, 87, 0.1);
+
+  /* Status Colors */
+  --color-success: #26de81;
+  --color-warning: #fed330;
+  --color-danger: #fc5c65;
+  --color-info: #45aaf2;
+
+  /* Card Colors */
+  --color-card-title: var(--color-text);
+  --color-card-text: var(--color-text-light);
+  --color-card-background: var(--color-surface);
+  --color-card-border: var(--color-border);
+  --color-card-shadow: 8px 8px 0 rgba(255, 71, 87, 0.8);
+  --color-card-hover: #343b45;
+
+  /* Form Colors */
+  --color-input-background: var(--color-surface);
+  --color-input-border: var(--color-border);
+  --color-input-text: var(--color-text);
+  --color-input-placeholder: var(--color-text-light);
+  --color-input-focus: var(--color-primary);
+
+  /* Button Colors */
+  --color-button-background: var(--color-primary);
+  --color-button-text: var(--color-text);
+  --color-button-border: var(--color-primary);
+  --color-button-hover: var(--color-surface);
+  --color-button-hover-text: var(--color-primary);
+
+  /* Navigation Colors */
+  --color-nav-background: var(--color-secondary);
+  --color-nav-text: var(--color-text);
+  --color-nav-hover: var(--color-primary);
+}
+
+/* Dark mode specific overrides */
+:root[data-theme="dark"] .card__title,
+.dark-mode .card__title {
+  color: var(--color-text);
+}
+
+:root[data-theme="dark"] .card__title a,
+.dark-mode .card__title a {
+  color: var(--color-text);
+}
+
+:root[data-theme="dark"] .card__title a:hover,
+.dark-mode .card__title a:hover {
+  color: var(--color-primary);
+}
+
+/* System Dark Mode Detection
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    /* Core Colors */
+    --color-primary: #ff4757;
+    --color-secondary: #1a1d24;
+    --color-background: #0f1115;
+    --color-surface: #1a1d24;
+    --color-text: #ffffff;
+    --color-text-light: #e1e5eb;
+
+    /* UI Colors */
+    --color-border: rgba(245, 246, 250, 0.1);
+    --color-shadow: rgba(0, 0, 0, 0.3);
+    --color-hover: rgba(255, 71, 87, 0.1);
+
+    /* Status Colors */
+    --color-success: #26de81;
+    --color-warning: #fed330;
+    --color-danger: #fc5c65;
+    --color-info: #45aaf2;
+
+    /* Card Colors */
+    --color-card-background: var(--color-surface);
+    --color-card-border: var(--color-border);
+    --color-card-shadow: 8px 8px 0 rgba(255, 71, 87, 0.8);
+    --color-card-hover: #343b45;
+
+    /* Form Colors */
+    --color-input-background: var(--color-surface);
+    --color-input-border: var(--color-border);
+    --color-input-text: var(--color-text);
+    --color-input-placeholder: var(--color-text-light);
+    --color-input-focus: var(--color-primary);
+
+    /* Button Colors */
+    --color-button-background: var(--color-primary);
+    --color-button-text: var(--color-text);
+    --color-button-border: var(--color-primary);
+    --color-button-hover: var(--color-surface);
+    --color-button-hover-text: var(--color-primary);
+
+    /* Navigation Colors */
+    --color-nav-background: var(--color-secondary);
+    --color-nav-text: var(--color-text);
+    --color-nav-hover: var(--color-primary);
+  }
+}
+
+/* High Contrast Overrides
+   ========================================================================== */
+@media (prefers-contrast: high) {
+  :root {
+    /* Light Theme High Contrast */
+    --color-text: #000000;
+    --color-text-light: #1d1d1b;
+    --color-primary: #cc0000;
+    --color-secondary: #000000;
+    --color-background: #ffffff;
+    --color-surface: #ffffff;
+    --color-border: #000000;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      /* Dark Theme High Contrast */
+      --color-text: #ffffff;
+      --color-text-light: #f0f0f0;
+      --color-primary: #ff6b6b;
+      --color-secondary: #000000;
+      --color-background: #000000;
+      --color-surface: #1a1a1a;
+      --color-border: #ffffff;
+    }
+  }
+}
+
+/* Print Theme Override
+   ========================================================================== */
+@media print {
+  :root {
+    --color-primary: #000000;
+    --color-secondary: #000000;
+    --color-background: #ffffff;
+    --color-surface: #ffffff;
+    --color-text: #000000;
+    --color-text-light: #333333;
+    --color-border: #000000;
+    --color-shadow: none;
+  }
+}
+
+/* System Dark Mode Toggle Animation
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  html {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  /* Disable transitions if user prefers reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      transition: none;
+    }
+  }
+}

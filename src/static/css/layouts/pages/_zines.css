@@ -1,0 +1,44 @@
+/* _zines.css */
+.zine-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+}
+
+/* Zine detail page styles */
+.zine-detail-container {
+  padding: var(--spacing-xl) var(--container-padding);
+  max-width: var(--max-width-wide);
+  margin: 0 auto;
+}
+
+/* Ensure the grid inside each zine card maintains proper layout */
+.card--zine .grid--asymmetric {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+}
+
+.grid__empty {
+  text-align: center;
+  padding: var(--spacing-xl);
+  color: var(--color-text-light);
+  grid-column: 1 / -1;
+}
+
+/* For larger screens, we can still have the internal content in two columns */
+@media (min-width: 768px) {
+  .card--zine .grid--asymmetric {
+    grid-template-columns: 300px 1fr;
+  }
+}
+
+/* Remove any existing grid column settings that might conflict */
+@media (min-width: 768px) {
+  .grid--2-cols.zine-grid,
+  .grid--3-cols.zine-grid {
+    grid-template-columns: 1fr;
+  }
+}

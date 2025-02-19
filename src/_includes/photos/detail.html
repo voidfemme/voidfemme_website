@@ -5,8 +5,8 @@
 {% block content %}
 <article class="photo-post">
   <header class="photo-post-header">
-    <h1>{{ post.caption or "Photo Post" }}</h1>
-    <time datetime="{{ post.created_at }}">
+    <h1 class="card__title">{{ post.caption or "Photo Post" }}</h1>
+    <time datetime="{{ post.created_at }}" class="card__date">
       {{ post.created_at|date }}
     </time>
   </header>
@@ -21,7 +21,7 @@
         loading="lazy"
       >
       {% if photo.alt_text %}
-      <figcaption>{{ photo.alt_text }}</figcaption>
+      <figcaption class="card__caption">{{ photo.alt_text }}</figcaption>
       {% endif %}
     </figure>
     {% endfor %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}about{% endblock %}
+{% block content %}
+<div class="about-page">
+    <header class="page-header">
+        <h1 class="page__title">about</h1>
+    </header>
+    
+    <div class="container">
+        <article class="card">
+            <div class="card__content">
+                {{ content | safe }}
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}
