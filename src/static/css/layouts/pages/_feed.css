@@ -1,0 +1,19 @@
+/* Feed specific card styles */
+.feed-page .card {
+  margin-bottom: var(--spacing-lg);
+}
+
+.feed-page .card__title a {
+  text-decoration: none;
+}
+
+.feed-page .card__content {
+  margin-bottom: var(--spacing-md);
+}
+
+.feed-page .card footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-md);
+}

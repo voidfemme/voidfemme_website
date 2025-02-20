@@ -9,6 +9,7 @@
   --color-text-light: #4a4a4a;
 
   /* Typography */
+  --font-heading: "UnifrakturMaguntia", serif;
   --font-primary: "Futura", "Helvetica Neue", Arial, sans-serif;
   --font-secondary: "Futura", "Helvetica Neue", Arial, sans-serif;
   --font-size-base: 1rem;
@@ -158,8 +159,18 @@ ol {
 }
 
 a {
+  color: var(--color-text);
   text-decoration: none;
-  color: inherit;
+  transition: all 0.2s ease;
+  padding: 0.1em 0.2em;
+  margin: -0.1em -0.2em;
+  border-radius: var(--border-radius);
+}
+
+a:hover {
+  color: white;
+  background-color: var(--color-primary);
+  text-decoration: none;
 }
 
 button {
@@ -167,10 +178,54 @@ button {
   background: none;
   cursor: pointer;
 }
+
+/* Exceptions for special links */
+.button,
+.nav__link,
+.site-brand__link,
+.footer-link,
+.tag {
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+}
+
+.button:hover {
+  background-color: var(--color-secondary);
+  color: white;
+}
+
+.nav__link:hover,
+.site-brand__link:hover,
+.footer-link:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+/* Card title links - maintain the new hover style */
+.card__title a {
+  padding: 0;
+  margin: 0;
+}
+
+.card__title a:hover {
+  color: var(--font-primary);
+  background-color: transparent;
+}
+
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
 /* _typography.css */
 body {
+  font-family: var(--font-primary);
   font-size: var(--font-size-base);
   font-weight: 400;
+  line-height: var(--line-height-base);
 }
 
 h1,
@@ -179,15 +234,17 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-secondary);
-  font-weight: 700;
-  line-height: 1.2;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.4;
   margin-bottom: var(--spacing-md);
+  letter-spacing: 0.023m;
 }
 
 h1 {
   font-size: var(--font-size-h1);
   margin-bottom: var(--spacing-lg);
+  transform: rotate(-1deg);
 }
 
 h2 {
@@ -238,6 +295,24 @@ a:hover {
 
 .font-medium {
   font-weight: 500;
+}
+
+p,
+.card__description,
+.card__excerpt,
+.card__content,
+.form-label,
+.form-input,
+.button,
+.nav__link {
+  font-family: var(--font-primary);
+}
+
+.home-hero__title,
+.page__title,
+.card__title,
+.site-brand {
+  font-family: var(--font-heading);
 }
 /* _grid.css */
 .container {
@@ -542,10 +617,9 @@ a:hover {
 }
 
 .home-hero__title {
-  font-size: 3rem;
-  margin-bottom: var(--spacing-md);
-  color: var(--color-primary);
-  font-weight: 700;
+  font-size: 4rem;
+  transform: rotate(-2deg);
+  text-shadow: 2px 2px 0px var(--color-accent);
 }
 
 .home-hero__lead {
@@ -658,14 +732,16 @@ a:hover {
   border-radius: var(--border-radius);
   font-weight: 500;
   text-align: center;
-  transition: var(--transition-base);
+  transition: all 0.2s ease;
   background-color: var(--color-primary);
   color: white;
+  border: 2px solid var(--color-primary);
 }
 
 .button:hover {
-  background-color: var(--color-secondary);
-  transform: translateY(-1px);
+  background-color: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .button:active {
@@ -1058,6 +1134,7 @@ textarea.form-input {
   padding: 0.5rem;
   transition: var(--transition-base);
   position: relative;
+  text-decoration: none;
 }
 
 .nav__link:hover {

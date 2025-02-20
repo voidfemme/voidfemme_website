@@ -40,8 +40,9 @@
                     {{ item.summary | safe }}
                 </div>
                 
-                {% if item.tags %}
                 <footer>
+                    <a href="{{ item.url }}" class="button button--small">Read more →</a>
+                    {% if item.tags %}
                     <div class="card__tags">
                         {% for tag in item.tags %}
                         <span class="tag">{{ tag }}</span>

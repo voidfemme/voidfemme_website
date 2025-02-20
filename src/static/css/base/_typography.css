@@ -1,7 +1,9 @@
 /* _typography.css */
 body {
+  font-family: var(--font-primary);
   font-size: var(--font-size-base);
   font-weight: 400;
+  line-height: var(--line-height-base);
 }
 
 h1,
@@ -10,15 +12,17 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-secondary);
-  font-weight: 700;
-  line-height: 1.2;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.4;
   margin-bottom: var(--spacing-md);
+  letter-spacing: 0.023m;
 }
 
 h1 {
   font-size: var(--font-size-h1);
   margin-bottom: var(--spacing-lg);
+  transform: rotate(-1deg);
 }
 
 h2 {
@@ -69,4 +73,22 @@ a:hover {
 
 .font-medium {
   font-weight: 500;
+}
+
+p,
+.card__description,
+.card__excerpt,
+.card__content,
+.form-label,
+.form-input,
+.button,
+.nav__link {
+  font-family: var(--font-primary);
+}
+
+.home-hero__title,
+.page__title,
+.card__title,
+.site-brand {
+  font-family: var(--font-heading);
 }

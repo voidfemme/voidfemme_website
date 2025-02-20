@@ -10,10 +10,9 @@
 }
 
 .home-hero__title {
-  font-size: 3rem;
-  margin-bottom: var(--spacing-md);
-  color: var(--color-primary);
-  font-weight: 700;
+  font-size: 4rem;
+  transform: rotate(-2deg);
+  text-shadow: 2px 2px 0px var(--color-accent);
 }
 
 .home-hero__lead {

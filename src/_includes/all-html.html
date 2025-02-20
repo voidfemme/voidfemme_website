@@ -1,9 +1,18 @@
-{% extends "base.html" %} {% block title %}About{% endblock %} {% block content
-%}
-<div class="page-container">
-  <h1>About</h1>
-
-  <div class="page-content">{{ content | safe }}</div>
+{% extends "base.html" %}
+{% block title %}about{% endblock %}
+{% block content %}
+<div class="about-page">
+    <header class="page-header">
+        <h1 class="page__title">about</h1>
+    </header>
+    
+    <div class="container">
+        <article class="card">
+            <div class="card__content">
+                {{ content | safe }}
+            </div>
+        </article>
+    </div>
 </div>
 {% endblock %}
 <!doctype html>
@@ -106,53 +115,61 @@
 {% endblock %}
 {% extends "base.html" %}
 
-{% block title %}Feed{% endblock %}
+{% block title %}feed{% endblock %}
 
 {% block content %}
 <div class="feed-page">
-  {% if content %}
-  <div class="feed-description card">
-    {{ content | safe }}
-  </div>
-  {% endif %}
-  
-  <div class="feed-items">
-    {% if feed_items %}
-      {% for item in feed_items %}
-      <article class="feed-item card">
-        <header class="feed-item-header">
-          <h2 class="feed-item-title">
-            <a href="{{ item.url }}" class="feed-item-link">{{ item.title }}</a>
-          </h2>
-          <div class="feed-item-meta">
-            {% if item.author %}
-            <span class="feed-item-author">by {{ item.author }}</span>
-            {% endif %}
-            <time datetime="{{ item.date }}" class="feed-item-date">
-              {{ item.date | date }}
-            </time>
-          </div>
-        </header>
-        
-        <div class="feed-item-summary">
-          {{ item.summary | safe }}
-        </div>
-        
-        {% if item.tags %}
-        <footer class="feed-item-footer">
-          <div class="feed-item-tags">
-            {% for tag in item.tags %}
-            <span class="tag">{{ tag }}</span>
-            {% endfor %}
-          </div>
-        </footer>
-        {% endif %}
-      </article>
-      {% endfor %}
-    {% else %}
-      <p class="feed-empty">No items in the feed yet.</p>
+    <header class="page-header">
+        <h1 class="page__title">feed</h1>
+    </header>
+
+    {% if content %}
+    <div class="container">
+        <article class="card">
+            <div class="card__content">
+                {{ content | safe }}
+            </div>
+        </article>
+    </div>
     {% endif %}
-  </div>
+    
+    <div class="container">
+        {% if feed_items %}
+            {% for item in feed_items %}
+            <article class="card">
+                <header class="card__header">
+                    <h2 class="card__title">
+                        <a href="{{ item.url }}">{{ item.title }}</a>
+                    </h2>
+                    <div class="card__meta">
+                        {% if item.author %}
+                        <span class="card__author">by {{ item.author }}</span>
+                        {% endif %}
+                        <time datetime="{{ item.date }}" class="card__date">
+                            {{ item.date | date }}
+                        </time>
+                    </div>
+                </header>
+                
+                <div class="card__content">
+                    {{ item.summary | safe }}
+                </div>
+                
+                {% if item.tags %}
+                <footer>
+                    <div class="card__tags">
+                        {% for tag in item.tags %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                </footer>
+                {% endif %}
+            </article>
+            {% endfor %}
+        {% else %}
+            <p class="post-list__empty">No items in the feed yet.</p>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
 <footer class="site-footer">
@@ -169,12 +186,12 @@
       <a href="/" class="site-brand__link">voidfemme</a>
     </div>
     <ul class="nav-list">
-      <li><a href="/" class="nav__link">Home</a></li>
-      <li><a href="/blog" class="nav__link">Blog</a></li>
-      <li><a href="/photos" class="nav__link">Photos</a></li>
-      <li><a href="/zines" class="nav__link">Zines</a></li>
-      <li><a href="/about" class="nav__link">About</a></li>
-      <li><a href="/feed" class="nav__link">Feed</a></li>
+      <li><a href="/" class="nav__link">home</a></li>
+      <li><a href="/blog" class="nav__link">blog</a></li>
+      <li><a href="/photos" class="nav__link">photos</a></li>
+      <li><a href="/zines" class="nav__link">zines</a></li>
+      <li><a href="/about" class="nav__link">about</a></li>
+      <li><a href="/feed" class="nav__link">feed</a></li>
     </ul>
   </nav>
 </header>
@@ -186,22 +203,21 @@
 <div class="home-page">
     <section class="home-hero">
         <h1 class="home-hero__title">voidfemme</h1>
-        <p class="home-hero__lead">a space for thoughts, code, and zines.</p>
+        <p class="home-hero__lead">feral punk bitch</p>
     </section>
 
     <section class="home-main">
-      <div class="grid grid--asymmetric">  <!-- Changed from home-columns -->
         {% if homelinks %}
-        <div class="card">  <!-- Changed from homelinks -->
+        <div class="card card--homelinks">
           {{ homelinks | safe }}
         </div>
         {% endif %}
+        
         {% if home_content %}
-        <div class="card card--featured">  <!-- Changed from home-content -->
+        <div class="card card--featured">
           {{ home_content | safe }}
         </div>
         {% endif %}
-      </div>
     </section>
 </div>
 {% endblock %}
@@ -350,16 +366,16 @@
 {% endblock %}
 {% extends "base.html" %}
 
-{% block title %}Zines{% endblock %}
+{% block title %}zines{% endblock %}
 
 {% block content %}
 <div class="zines-page">
     <header class="page-header">
-        <h1 class="page__title">Zines</h1>
+        <h1 class="page__title">zines</h1>
         <p class="page__subtitle">A collection of handmade digital zines</p>
     </header>
     
-    <div class="grid grid--3-cols">  <!-- Changed from zines-grid -->
+    <div class="zine-list">  <!-- Changed from zines-grid -->
         {% if zines %}
             {% for zine in zines %}
             <article class="card card--zine">  <!-- Changed from zine-card -->
@@ -405,12 +421,12 @@
 {% endblock %}
 {% extends "base.html" %}
 
-{% block title %}Photos | {{ super() }}{% endblock %}
+{% block title %}photos | {{ super() }}{% endblock %}
 
 {% block content %}
 <div class="photos-page">
   <header class="page-header">
-    <h1 class="page__title">Photos</h1>
+    <h1 class="page__title">photos</h1>
     {% if tag %}
     <p class="page__subtitle">Posts tagged with #{{ tag }}</p>
     {% endif %}

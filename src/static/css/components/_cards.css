@@ -23,11 +23,13 @@
 
 .card__title a {
   color: var(--color-text);
+  text-decoration: none !important;
   transition: var(--transition-base);
 }
 
 .card__title a:hover {
   color: var(--color-primary);
+  text-decoration: none !important;
 }
 
 .card__date {
