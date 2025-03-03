@@ -68,6 +68,30 @@ class Database:
                 "CREATE INDEX IF NOT EXISTS idx_photo_posts_created ON photo_posts(created_at)"
             )
 
+            # Create the contact_messages table
+            conn.execute(
+                """
+                CREATE TABLE IF NOT EXISTS contact_messages (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    email TEXT NOT NULL,
+                    message TEXT NOT NULL,
+                    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+                """
+            )
+
+    def store_contact_message(self, name, email, message):
+        """Store a contact form submission in the database."""
+        with sqlite3.connect(self.db_path) as conn:
+            conn.execute(
+                """
+                INSERT INTO contact_messages (name, email, message)
+                VALUES (?, ?, ?)
+                """,
+                (name, email, message),
+            )
+
     def create_photo_post(self, caption, tags, slug):
         """Create a new photo post."""
         with sqlite3.connect(self.db_path) as conn:

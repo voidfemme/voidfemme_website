@@ -3,21 +3,26 @@
   /* Colors */
   --color-primary: #e63946;
   --color-secondary: #1d1d1b;
-  --color-background: #f5f3f4;
+  --color-background: rgba(245, 243, 244, 0.92);
   --color-text: #2d2d2d;
   --color-accent: #ffd700;
-  --color-text-light: #4a4a4a;
+  --color-text-light: #1d1d1b;
+  --color-card-text: #1d1d1b;
 
   /* Typography */
   --font-heading: "UnifrakturMaguntia", serif;
-  --font-primary: "Futura", "Helvetica Neue", Arial, sans-serif;
-  --font-secondary: "Futura", "Helvetica Neue", Arial, sans-serif;
-  --font-size-base: 1rem;
-  --font-size-h1: 2.5rem;
-  --font-size-h2: 2rem;
-  --font-size-h3: 1.5rem;
-  --font-size-h4: 1.25rem;
-  --line-height-base: 1.6;
+  --font-primary: "Special Elite", monospace;
+  --font-secondary: "EB Garamond", serif;
+  --font-size-base: 1.125rem;
+
+  /* Slightly larger for better readability */
+  --font-size-h1: 2.75rem;
+  /* Adjusted for the new scale */
+  --font-size-h2: 2.25rem;
+  --font-size-h3: 1.75rem;
+  --font-size-h4: 1.5rem;
+  --line-height-base: 1.7;
+  /* Increased for better readability with Garamond */
 
   /* Spacing */
   --spacing-unit: 1rem;
@@ -122,6 +127,12 @@ body {
   font-family: var(--font-primary);
   color: var(--color-text);
   background-color: var(--color-background);
+  background-image: 
+    linear-gradient(rgba(255, 255,255, 0.85), rgba(255, 255, 255, 0.85)),
+    url("/static/images/crumpled-white-paper.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -222,29 +233,39 @@ h4 a:hover {
 }
 /* _typography.css */
 body {
-  font-family: var(--font-primary);
+  font-family: var(--font-secondary);
+  /* Change to secondary for body */
   font-size: var(--font-size-base);
   font-weight: 400;
   line-height: var(--line-height-base);
 }
 
-h1,
+/* Main headings */
+h1 {
+  font-family: var(--font-heading);
+  /* Unifraktur for h1 */
+  font-size: var(--font-size-h1);
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: var(--spacing-lg);
+  transform: rotate(-1deg);
+  letter-spacing: 0.023em;
+  /* Fix the unit from 0.023m to 0.023em */
+}
+
+/* Secondary headings */
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-heading);
+  font-family: var(--font-primary);
+  /* Special Elite for h2-h6 */
   font-weight: 400;
   line-height: 1.4;
   margin-bottom: var(--spacing-md);
-  letter-spacing: 0.023m;
-}
-
-h1 {
-  font-size: var(--font-size-h1);
-  margin-bottom: var(--spacing-lg);
-  transform: rotate(-1deg);
+  letter-spacing: 0.023em;
+  /* Fix the unit */
 }
 
 h2 {
@@ -259,20 +280,106 @@ h4 {
   font-size: var(--font-size-h4);
 }
 
+/* Body text */
 p {
+  font-family: var(--font-secondary);
+  /* EB Garamond for paragraphs */
   margin-bottom: var(--spacing-md);
+  line-height: 1.7;
+  font-size: 1.125rem;
 }
 
+/* Card content */
+.card__description,
+.card__excerpt,
+.card__content {
+  font-family: var(--font-secondary);
+  /* EB Garamond for card content */
+  line-height: 1.7;
+  font-size: 1.125rem;
+}
+
+.card .card__title,
+.card .card__title a,
+article .card__title,
+.card--post .card__title,
+.contact-section .card__title {
+  font-family: var(--font-primary) !important;
+}
+
+.card__content h2,
+.card__content h3,
+.card__content h4,
+.card__content h5,
+.card__content h6,
+.contact-section h2,
+.card h2,
+.card h3 {
+  font-family: var(--font-primary) !important;
+}
+
+.card__content p,
+.card__description,
+.card__excerpt {
+  font-family: var(--font-secondary) !important;
+}
+
+/* UI elements */
+.form-label,
+.button,
+.nav__link {
+  font-family: var(--font-primary);
+  /* Keep Special Elite for UI */
+  font-weight: 500;
+}
+
+/* Meta information */
+.card__date,
+.card__meta,
+.footer-content p {
+  font-family: var(--font-primary);
+  /* Keep Special Elite for meta info */
+  font-size: 1rem;
+}
+
+/* Links */
 a {
   color: var(--color-primary);
   text-decoration: underline;
   transition: var(--transition-base);
+  font-weight: 500;
 }
 
 a:hover {
   color: var(--color-secondary);
 }
 
+/* Titles */
+.home-hero__title,
+.page__title,
+.card__title,
+.site-brand {
+  font-family: var(--font-heading);
+  /* Unifraktur for all main titles */
+}
+
+.page__title {
+  font-size: var(--font-size-h1);
+  transform: rotate(-2deg);
+  text-shadow: 2px 2px 0px var(--color-accent);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Keep the rest of your specific transforms */
+.blog-page .page__title {
+  transform: rotate(-1.5deg);
+}
+
+.photos-page .page__title {
+  transform: rotate(1deg);
+}
+
+/* Other utility classes */
 .text-sm {
   font-size: 0.875rem;
 }
@@ -295,24 +402,6 @@ a:hover {
 
 .font-medium {
   font-weight: 500;
-}
-
-p,
-.card__description,
-.card__excerpt,
-.card__content,
-.form-label,
-.form-input,
-.button,
-.nav__link {
-  font-family: var(--font-primary);
-}
-
-.home-hero__title,
-.page__title,
-.card__title,
-.site-brand {
-  font-family: var(--font-heading);
 }
 /* _grid.css */
 .container {
@@ -409,13 +498,15 @@ p,
 
 /* Page headers (distinct from site header) */
 .page-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: var(--spacing-xl);
   padding: var(--spacing-xl) 0;
 }
 
 .page__title {
   margin-bottom: var(--spacing-sm);
+  position: relative;
+  display: inline-block;
 }
 
 .page__subtitle {
@@ -423,6 +514,7 @@ p,
   opacity: 0.8;
   max-width: 600px;
   margin: 0 auto;
+  transform: rotate(0deg); /* Counteract the parent rotation to keep subtitle straight */
 }
 
 /* Home page specific header */
@@ -522,6 +614,41 @@ p,
   opacity: 1;
   color: var(--color-primary);
 }
+/* _about.css */
+/* Contact form specific styles */
+.contact-section {
+  margin-top: var(--spacing-xl);
+}
+
+.contact-form {
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .contact-form {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+}
+
+/* Flash messages for form submission */
+.flash-message {
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  border-radius: var(--border-radius);
+}
+
+.flash-success {
+  background-color: rgba(46, 204, 113, 0.2);
+  border: 1px solid #2ecc71;
+  color: #27ae60;
+}
+
+.flash-error {
+  background-color: rgba(231, 76, 60, 0.2);
+  border: 1px solid #e74c3c;
+  color: #c0392b;
+}
 /* _blog.css */
 .blog-page {
   padding: var(--spacing-xl) var(--container-padding);
@@ -573,7 +700,7 @@ p,
 }
 
 .card--post .card__date {
-  color: var(--color-text-light);
+  color: var(--color-text);
   font-size: 0.875rem;
 }
 
@@ -592,7 +719,7 @@ p,
 .post-list__empty {
   text-align: center;
   padding: var(--spacing-xl);
-  color: var(--color-text-light);
+  color: var(--color-text);
 }
 
 /* Responsive adjustments */
@@ -604,6 +731,25 @@ p,
   .card--post {
     padding: var(--spacing-xl);
   }
+}
+/* Feed specific card styles */
+.feed-page .card {
+  margin-bottom: var(--spacing-lg);
+}
+
+.feed-page .card__title a {
+  text-decoration: none;
+}
+
+.feed-page .card__content {
+  margin-bottom: var(--spacing-md);
+}
+
+.feed-page .card footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-md);
 }
 /* _home.css */
 /* Home page specific styles */
@@ -805,7 +951,19 @@ p,
   box-shadow: var(--shadow-card);
   padding: var(--spacing-lg);
   transition: var(--transition-base);
-  color: var(--color-text);
+  color: var(--color-card-text);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
 }
 
 .card:hover {
@@ -835,13 +993,11 @@ p,
 .card__date {
   font-size: 0.875rem;
   color: var(--color-text);
-  opacity: 0.8;
 }
 
 .card_date,
 .card__downloads {
   color: var(--color-text);
-  opacity: 0.8;
   margin: 0;
 }
 
@@ -886,7 +1042,6 @@ p,
 
 .card__downloads {
   color: var(--color-text);
-  opacity: 0.8;
 }
 
 .card__actions {
@@ -994,7 +1149,6 @@ p,
   font-size: 2rem;
   font-weight: bold;
   color: var(--color-text);
-  opacity: 0.5;
 }
 
 .card__cover-placeholder--large {
@@ -1006,7 +1160,6 @@ p,
   font-size: 4rem;
   font-weight: bold;
   color: var(--color-text);
-  opacity: 0.5;
 }
 /* _forms.css */
 .form {
@@ -1554,7 +1707,16 @@ figcaption {
 /* Light Theme Colors
    ========================================================================== */
 :root {
-  /* Core Colors */
+  /* Core Colors (Dark colors) */
+  /* --color-primary: #e63946; */
+  /* --color-secondary: #1d1d1b; */
+  /* --color-background: #f5f3f4; */
+  /* --color-surface: #ffffff; */
+  /* --color-text: #1d1d1b; */
+  /* --color-text-light: #4a4a4a; */
+  /* --color-accent: #ffd700; */
+
+  /* Core Colors (Light Colors) */
   --color-primary: #e63946;
   --color-secondary: #1d1d1b;
   --color-background: #f5f3f4;

@@ -5,7 +5,19 @@
   box-shadow: var(--shadow-card);
   padding: var(--spacing-lg);
   transition: var(--transition-base);
-  color: var(--color-text);
+  color: var(--color-card-text);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
 }
 
 .card:hover {
@@ -35,13 +47,11 @@
 .card__date {
   font-size: 0.875rem;
   color: var(--color-text);
-  opacity: 0.8;
 }
 
 .card_date,
 .card__downloads {
   color: var(--color-text);
-  opacity: 0.8;
   margin: 0;
 }
 
@@ -86,7 +96,6 @@
 
 .card__downloads {
   color: var(--color-text);
-  opacity: 0.8;
 }
 
 .card__actions {
@@ -194,7 +203,6 @@
   font-size: 2rem;
   font-weight: bold;
   color: var(--color-text);
-  opacity: 0.5;
 }
 
 .card__cover-placeholder--large {
@@ -206,5 +214,4 @@
   font-size: 4rem;
   font-weight: bold;
   color: var(--color-text);
-  opacity: 0.5;
 }

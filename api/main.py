@@ -10,6 +10,7 @@ from flask import (
     flash,
     send_from_directory,
 )
+from flask_mail import Mail, Message
 from slugify import slugify
 import markdown
 import frontmatter
@@ -50,6 +51,10 @@ db = Database("webmentions.db")
 zine_manager = ZineManager("../src/zines")
 bot = TelegramBot(TELEGRAM_BOT_TOKEN, db)
 feed_aggregator = FeedAggregator(cache_duration=30)  # Cache for 30 minutes
+mail = Mail(app)
+
+# Load secret key from envrionment
+app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
 
 @app.route("/static/images/posts/<path:filename>")
@@ -370,6 +375,7 @@ def get_post_data(post_path):
                 "date": datetime.now(),
                 "content": content,
                 "url": f"/posts/{post_path.stem}",
+                "tags": [],
             }
 
         # Convert date string to datetime if needed
@@ -402,11 +408,27 @@ def get_post_data(post_path):
         processed_content = process_image_paths(post.content, post_path.stem)
         content = md.convert(processed_content)
 
+        # Extract and normalize tags
+        tags = post.metadata.get("tags", [])
+        if isinstance(tags, str):
+            tags = [tags]
+
+        # Ensure tags are a list even if missing or wrongly formatted
+        if not isinstance(tags, list):
+            tags = []
+
+        # Determine the post status (default to "draft" if missing)
+        status = post.metadata.get("status", "draft").lower()
+        if status not in ["published", "draft"]:  # Fallback if invalid
+            status = "draft"
+
         return {
             "title": post.metadata.get("title", ""),
             "date": post_date,
             "content": content,
             "url": f"/posts/{post_path.stem}",
+            "tags": tags,
+            "status": status,
             **post.metadata,
         }
     except Exception as e:
@@ -416,6 +438,7 @@ def get_post_data(post_path):
             "date": datetime.now(),
             "content": "Error loading post",
             "url": f"/posts/{post_path.stem}",
+            "tags": [],
         }
 
 
@@ -500,12 +523,17 @@ def blog():
     posts = []
     for post_path in sorted(POSTS_DIR.glob("*.md"), reverse=True):
         post_data = get_post_data(post_path)
+
         # Ensure date is datetime
         if isinstance(post_data["date"], date) and not isinstance(
             post_data["date"], datetime
         ):
             post_data["date"] = datetime.combine(post_data["date"], datetime.min.time())
-        posts.append(post_data)
+
+        if (
+            post_data and post_data["status"] == "published"
+        ):  # Only show published posts
+            posts.append(post_data)
 
     posts = sorted(
         posts, key=lambda x: x["date"], reverse=True
@@ -527,6 +555,25 @@ def about():
     )
 
 
+@app.route("/tags/<tag>")
+def posts_by_tag(tag):
+    """Display posts filtered by a specific tag."""
+    page = request.args.get("page", 1, type=int)
+    posts = []
+
+    for post_path in sorted(POSTS_DIR.glob("*.md"), reverse=True):
+        post_data = get_post_data(post_path)
+
+        if (
+            post_data
+            and tag in post_data.get("tags", [])
+            and post_data["status"] == "published"
+        ):
+            posts.append(post_data)
+
+    return render_template("tag_archive.html", tag=tag, posts=posts)
+
+
 @app.route("/posts/<slug>")
 def post(slug):
     """Render an individual post."""
@@ -535,9 +582,14 @@ def post(slug):
         return "Post not found", 404
 
     post_data = get_post_data(post_path)
+
+    # If the post is a draft, show a warning message
+    if post_data["status"] == "draft":
+        flash("This post is a draft and not publicly visible.", "warning")
+
     webmentions = db.get_webmentions(f"/posts/{slug}")
 
-    return render_post(post_data, webmentions)
+    return render_template("post.html", **post_data, webmentions=webmentions)
 
 
 @app.route("/pages/<slug>")
@@ -663,6 +715,37 @@ def feed():
     feed_items = feed_aggregator.fetch_feeds()
 
     return render_template("feed.html", content=content, feed_items=feed_items)
+
+
+@app.route("/contact", methods=["POST"])
+def contact():
+    # Check the honeypot field
+    if request.form.get("website"):
+        # This is likely a bot submission since the honeypot field was filled
+        # Just silently redirect to avoid letting the bot know it was detected
+        return redirect(url_for("about"))
+
+    # Process legitimate form submissions
+    name = request.form.get("name")
+    email = request.form.get("email")
+    message = request.form.get("message")
+
+    # Validate the form data
+    if not all([name, email, message]):
+        flash("Please fill out all required fields", "error")
+        return redirect(url_for("about"))
+
+    try:
+        # Save to database or send email notification
+        db.store_contact_message(name, email, message)
+        flash("Thank you for your message! I'll get back to you soon.", "success")
+    except Exception as e:
+        flash(
+            "There was an error sending your message. Please try again later.", "error"
+        )
+        app.logger.error(f"Contact form error: {str(e)}")
+
+    return redirect(url_for("about"))
 
 
 if __name__ == "__main__":

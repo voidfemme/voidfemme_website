@@ -1,28 +1,38 @@
 /* _typography.css */
 body {
-  font-family: var(--font-primary);
+  font-family: var(--font-secondary);
+  /* Change to secondary for body */
   font-size: var(--font-size-base);
   font-weight: 400;
   line-height: var(--line-height-base);
 }
 
-h1,
+/* Main headings */
+h1 {
+  font-family: var(--font-heading);
+  /* Unifraktur for h1 */
+  font-size: var(--font-size-h1);
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: var(--spacing-lg);
+  transform: rotate(-1deg);
+  letter-spacing: 0.023em;
+  /* Fix the unit from 0.023m to 0.023em */
+}
+
+/* Secondary headings */
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-heading);
+  font-family: var(--font-primary);
+  /* Special Elite for h2-h6 */
   font-weight: 400;
   line-height: 1.4;
   margin-bottom: var(--spacing-md);
-  letter-spacing: 0.023m;
-}
-
-h1 {
-  font-size: var(--font-size-h1);
-  margin-bottom: var(--spacing-lg);
-  transform: rotate(-1deg);
+  letter-spacing: 0.023em;
+  /* Fix the unit */
 }
 
 h2 {
@@ -37,20 +47,106 @@ h4 {
   font-size: var(--font-size-h4);
 }
 
+/* Body text */
 p {
+  font-family: var(--font-secondary);
+  /* EB Garamond for paragraphs */
   margin-bottom: var(--spacing-md);
+  line-height: 1.7;
+  font-size: 1.125rem;
 }
 
+/* Card content */
+.card__description,
+.card__excerpt,
+.card__content {
+  font-family: var(--font-secondary);
+  /* EB Garamond for card content */
+  line-height: 1.7;
+  font-size: 1.125rem;
+}
+
+.card .card__title,
+.card .card__title a,
+article .card__title,
+.card--post .card__title,
+.contact-section .card__title {
+  font-family: var(--font-primary) !important;
+}
+
+.card__content h2,
+.card__content h3,
+.card__content h4,
+.card__content h5,
+.card__content h6,
+.contact-section h2,
+.card h2,
+.card h3 {
+  font-family: var(--font-primary) !important;
+}
+
+.card__content p,
+.card__description,
+.card__excerpt {
+  font-family: var(--font-secondary) !important;
+}
+
+/* UI elements */
+.form-label,
+.button,
+.nav__link {
+  font-family: var(--font-primary);
+  /* Keep Special Elite for UI */
+  font-weight: 500;
+}
+
+/* Meta information */
+.card__date,
+.card__meta,
+.footer-content p {
+  font-family: var(--font-primary);
+  /* Keep Special Elite for meta info */
+  font-size: 1rem;
+}
+
+/* Links */
 a {
   color: var(--color-primary);
   text-decoration: underline;
   transition: var(--transition-base);
+  font-weight: 500;
 }
 
 a:hover {
   color: var(--color-secondary);
 }
 
+/* Titles */
+.home-hero__title,
+.page__title,
+.card__title,
+.site-brand {
+  font-family: var(--font-heading);
+  /* Unifraktur for all main titles */
+}
+
+.page__title {
+  font-size: var(--font-size-h1);
+  transform: rotate(-2deg);
+  text-shadow: 2px 2px 0px var(--color-accent);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Keep the rest of your specific transforms */
+.blog-page .page__title {
+  transform: rotate(-1.5deg);
+}
+
+.photos-page .page__title {
+  transform: rotate(1deg);
+}
+
+/* Other utility classes */
 .text-sm {
   font-size: 0.875rem;
 }
@@ -73,22 +169,4 @@ a:hover {
 
 .font-medium {
   font-weight: 500;
-}
-
-p,
-.card__description,
-.card__excerpt,
-.card__content,
-.form-label,
-.form-input,
-.button,
-.nav__link {
-  font-family: var(--font-primary);
-}
-
-.home-hero__title,
-.page__title,
-.card__title,
-.site-brand {
-  font-family: var(--font-heading);
 }

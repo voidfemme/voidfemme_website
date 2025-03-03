@@ -31,13 +31,15 @@
 
 /* Page headers (distinct from site header) */
 .page-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: var(--spacing-xl);
   padding: var(--spacing-xl) 0;
 }
 
 .page__title {
   margin-bottom: var(--spacing-sm);
+  position: relative;
+  display: inline-block;
 }
 
 .page__subtitle {
@@ -45,6 +47,7 @@
   opacity: 0.8;
   max-width: 600px;
   margin: 0 auto;
+  transform: rotate(0deg); /* Counteract the parent rotation to keep subtitle straight */
 }
 
 /* Home page specific header */

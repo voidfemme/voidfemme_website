@@ -14,6 +14,8 @@
       crossorigin
     />
     <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
 
     <!-- Critical CSS -->
     <link rel="stylesheet" href="/static/css/main.css">
@@ -53,8 +55,14 @@
       document.documentElement.classList.add('js-enabled');
       
       // Handle dark mode preference
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem("theme")) {
         document.documentElement.classList.add('dark-mode');
+      }
+
+      // If theme is explicitly set in localStorage, use that
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "dark") {
+        document.documentElement.classList.add("dark-mode");
       }
     </script>
   </body>

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Posts Tagged "{{ tag }}"{% endblock %}
+{% block content %}
+<div class="tag-archive">
+  <header class="page-header">
+    <h1 class="page__title">Posts Tagged "{{ tag }}"</h1>
+  </header>
+
+  <div class="container">
+    {% if posts %}
+      {% for post in posts %}
+        <article class="card">
+          <div class="card__content">
+            <header class="card__header">
+              <h2 class="card__title">
+                <a href="{{ post.url }}">{{ post.title }}</a>
+              </h2>
+              <time class="card__date" datetime="{{ post.date.isoformat() }}">
+                {{ post.date | date }}
+              </time>
+            </header>
+            <p class="card__summary">{{ post.summary | safe }}</p>
+            <footer class="card__footer">
+              <a href="{{ post.url }}" class="button">Read More</a>
+            </footer>
+          </div>
+        </article>
+      {% endfor %}
+    {% else %}
+      <p>No posts found with this tag.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+

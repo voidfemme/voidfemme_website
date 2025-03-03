@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # api/new_post.py
 from datetime import datetime
 from pathlib import Path
@@ -26,6 +27,7 @@ title: {title}
 date: {current_time}
 tags: {tags}
 summary: {summary}
+status: draft
 ---
 
 Write your post here...

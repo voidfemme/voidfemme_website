@@ -3,7 +3,16 @@
 /* Light Theme Colors
    ========================================================================== */
 :root {
-  /* Core Colors */
+  /* Core Colors (Dark colors) */
+  /* --color-primary: #e63946; */
+  /* --color-secondary: #1d1d1b; */
+  /* --color-background: #f5f3f4; */
+  /* --color-surface: #ffffff; */
+  /* --color-text: #1d1d1b; */
+  /* --color-text-light: #4a4a4a; */
+  /* --color-accent: #ffd700; */
+
+  /* Core Colors (Light Colors) */
   --color-primary: #e63946;
   --color-secondary: #1d1d1b;
   --color-background: #f5f3f4;

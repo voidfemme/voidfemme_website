@@ -17,6 +17,12 @@ body {
   font-family: var(--font-primary);
   color: var(--color-text);
   background-color: var(--color-background);
+  background-image: 
+    linear-gradient(rgba(255, 255,255, 0.85), rgba(255, 255, 255, 0.85)),
+    url("/static/images/crumpled-white-paper.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

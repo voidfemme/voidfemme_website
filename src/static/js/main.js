@@ -69,12 +69,18 @@ const enhanceDarkMode = () => {
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
   const footer = document.querySelector(".site-footer");
 
+  // Get saved theme preference or default to 'light'
+  const savedTheme = localStorage.getItem("theme") || "light";
+
   // Create and add the toggle button
   const createToggle = () => {
     const toggle = document.createElement("button");
     toggle.className = "theme-toggle";
     toggle.setAttribute("aria-label", "Toggle dark mode");
-    toggle.innerHTML = `<span class="theme-toggle__icon">${prefersDark.matches ? "☀️" : "🌙"}</span>`;
+    // Use saved theme or system preference for initial icon
+    const isDark =
+      savedTheme === "dark" || (savedTheme === null && prefersDark.matches);
+    toggle.innerHTML = `<span class="theme-toggle__icon">${isDark ? "☀️" : "🌙"}</span>`;
 
     // Find the footer content
     const footerContent = footer.querySelector(".footer-content");
@@ -85,6 +91,9 @@ const enhanceDarkMode = () => {
 
   // Handle system preference changes and manual toggles
   const toggleDark = (isDark) => {
+    // Save preference to localStorage
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+
     // Toggle both the class and data attribute for compatibility
     document.documentElement.classList.toggle("dark-mode", isDark);
     document.documentElement.setAttribute(
@@ -96,6 +105,39 @@ const enhanceDarkMode = () => {
     const icon = document.querySelector(".theme-toggle__icon");
     if (icon) {
       icon.textContent = isDark ? "☀️" : "🌙";
+    }
+
+    // Initialize theme based on saved preference or system preference
+    const initializeTheme = () => {
+      if (savedTheme === "dark") {
+        toggleDark(true);
+      } else if (savedTheme === "light") {
+        toggleDark(false);
+      } else {
+        // If no saved preference, use system preference
+        toggleDark(prefersDark.matches);
+      }
+    };
+
+    // Initialize system preference listener
+    prefersDark.addEventListener("change", (e) => {
+      // Only follow system preference if there's no saved preference
+      if (!localStorage.getItem("theme")) {
+        toggleDark(e.matches);
+      }
+    });
+
+    // Initialize theme
+    initializeTheme();
+
+    // Add manual toggle functionality
+    if (footer) {
+      const toggle = createToggle();
+      toggle.addEventListener("click", () => {
+        const isDark =
+          !document.documentElement.classList.contains("dark-mode");
+        toggleDark(isDark);
+      });
     }
   };
 

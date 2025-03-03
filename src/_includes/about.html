@@ -12,6 +12,46 @@
                 {{ content | safe }}
             </div>
         </article>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for category, message in messages %}
+                <div class="flash flash-{{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <!-- Contact Form Section -->
+        <section class="card contact-section">
+            <h2 class="card__title">Contact Me</h2>
+            <form action="/contact" method="POST" class="contact-form">
+
+                <div class="form-group">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" class="form-input" rows="5" required></textarea>
+                </div>
+                
+                <div class="form-group" style="display:none;">
+                    <label for="website" class="form-label">Website</label>
+                    <input type="text" id="website" name="website" class="form-input">
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="button">Send Message</button>
+            </form>
+        </section>
     </div>
 </div>
 {% endblock %}
