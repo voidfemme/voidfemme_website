@@ -52,6 +52,9 @@ zine_manager = ZineManager("../src/zines")
 bot = TelegramBot(TELEGRAM_BOT_TOKEN, db)
 feed_aggregator = FeedAggregator(cache_duration=30)  # Cache for 30 minutes
 mail = Mail(app)
+port = int(os.getenv("PORT", 10000))
+
+app.run(host="0.0.0.0", port=port)
 
 # Load secret key from envrionment
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
