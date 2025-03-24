@@ -10,7 +10,7 @@ from flask import (
     flash,
     send_from_directory,
 )
-from flask_mail import Mail, Message
+from flask_mail import Mail
 from slugify import slugify
 import markdown
 import frontmatter
@@ -22,7 +22,7 @@ import os
 
 from database import Database
 from validators import validate_webmention
-from templates import render_post, render_page
+from templates import render_page
 from zines import ZineManager
 from feed_aggregator import FeedAggregator
 from config import (
@@ -48,7 +48,7 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__, template_folder="../src/_includes", static_folder="../src/static")
 db = Database("webmentions.db")
-zine_manager = ZineManager("../src/zines")
+zine_manager = ZineManager(str(ZINES_DIR))
 bot = TelegramBot(TELEGRAM_BOT_TOKEN, db)
 feed_aggregator = FeedAggregator(cache_duration=30)  # Cache for 30 minutes
 mail = Mail(app)
@@ -62,7 +62,7 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
 @app.route("/static/images/posts/<path:filename>")
 def serve_blog_image(filename):
-    return send_from_directory("src/static/images/posts", filename)
+    return send_from_directory("content/photos/posts", filename)
 
 
 # Test route to verify the server is working
@@ -461,7 +461,7 @@ def process_image_paths(content, post_slug):
             return f"![{alt_text}]({img_path})"
 
         # Otherwise, construct the path to the static directory
-        new_path = f"/static/images/posts/{post_slug}/{img_path}"
+        new_path = f"../content/photos/posts/{post_slug}/{img_path}"
         return f"![{alt_text}]({new_path})"
 
     return re.sub(img_pattern, replace_path, content)

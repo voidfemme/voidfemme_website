@@ -61,6 +61,7 @@ src/zines/
 # Also skip images generated for posts and user-uploaded photos.
 src/static/images/posts/
 src/static/photos/
+content/
 
 # PDFs (if any PDFs are user content, ignore them)
 # Note: Remove or comment out the next line if you wish to track zine PDFs.

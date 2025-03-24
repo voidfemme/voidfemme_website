@@ -9,11 +9,11 @@ load_dotenv()
 BASE_DIR = Path(__file__).parent.parent
 
 # Content Directories
-CONTENT_DIR = BASE_DIR / "src"
+CONTENT_DIR = BASE_DIR / "content"
 POSTS_DIR = CONTENT_DIR / "posts"
 PAGES_DIR = CONTENT_DIR / "pages"
 ZINES_DIR = CONTENT_DIR / "zines"
-PHOTOS_DIR = CONTENT_DIR / "static" / "photos"
+PHOTOS_DIR = CONTENT_DIR / "photos"
 
 # Photo sizes
 THUMBNAIL_SIZE = (300, 300)  # Instagram-style square thumbnails
