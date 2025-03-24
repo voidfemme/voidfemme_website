@@ -54,8 +54,6 @@ feed_aggregator = FeedAggregator(cache_duration=30)  # Cache for 30 minutes
 mail = Mail(app)
 port = int(os.getenv("PORT", 10000))
 
-app.run(host="0.0.0.0", port=port)
-
 # Load secret key from envrionment
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
@@ -751,25 +749,25 @@ def contact():
     return redirect(url_for("about"))
 
 
-if __name__ == "__main__":
-    # Test the bot token on startup
-    try:
-        response = requests.get(
-            f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getMe"
-        )
-        if response.status_code == 200:
-            logger.info("Telegram bot token is valid")
-            logger.info(f"Bot info: {response.json()}")
-        else:
-            logger.error(f"Invalid Telegram bot token: {response.text}")
-    except Exception as e:
-        logger.error(f"Error testing bot token: {str(e)}")
-
-    # Print startup information
-    logger.info(f"Server starting on port 5000")
-    logger.info(f"Debug mode: {app.debug}")
-    logger.info(f"TELEGRAM_BOT_TOKEN set: {bool(TELEGRAM_BOT_TOKEN)}")
-    logger.info(f"ALLOWED_TELEGRAM_USERS: {ALLOWED_TELEGRAM_USERS}")
-
-    # Run the app
-    app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=True)
+# if __name__ == "__main__":
+#     # Test the bot token on startup
+#     try:
+#         response = requests.get(
+#             f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getMe"
+#         )
+#         if response.status_code == 200:
+#             logger.info("Telegram bot token is valid")
+#             logger.info(f"Bot info: {response.json()}")
+#         else:
+#             logger.error(f"Invalid Telegram bot token: {response.text}")
+#     except Exception as e:
+#         logger.error(f"Error testing bot token: {str(e)}")
+#
+#     # Print startup information
+#     logger.info(f"Server starting on port 5000")
+#     logger.info(f"Debug mode: {app.debug}")
+#     logger.info(f"TELEGRAM_BOT_TOKEN set: {bool(TELEGRAM_BOT_TOKEN)}")
+#     logger.info(f"ALLOWED_TELEGRAM_USERS: {ALLOWED_TELEGRAM_USERS}")
+#
+#     # Run the app
+#     app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=True)
